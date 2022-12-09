@@ -1,11 +1,11 @@
 const { Sequelize } = require("sequelize");
+const variables = require("./variables");
 
-// Option 2: Passing parameters separately (other dialects)
-
-const db = new Sequelize("omdb", "postgres", "passwd", {
+const db = new Sequelize(variables.PGDATABASE, variables.PGUSER, variables.PGPASSWORD, {
   logging: false,
-  host: "localhost",
-  dialect: "postgres" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
+  host: variables.PGHOST,
+  port: variables.PGPORT,
+  dialect: "postgres"
 });
 
 module.exports = db;

@@ -2,6 +2,7 @@
 
 const express = require("express");
 const db = require("./config/db");
+const variables = require("./config/variables");
 // const User = require("./models/User");
 
 const models = require("./models");
@@ -17,9 +18,9 @@ app.use("/api", router);
 
 db.sync({ force: false })
   .then(() => {
-    console.log("DB ONLINE");
-    app.listen(4000, () => {
-      console.log("server on port 3009");
+    console.log("db online");
+    app.listen(variables.PORT, () => {
+      console.log(`server on port ${variables.PORT}`);
     });
   })
   .catch(console.error);
