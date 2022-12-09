@@ -1,16 +1,14 @@
-// server configs
-
 const express = require("express");
 const db = require("./config/db");
 const variables = require("./config/variables");
 // const User = require("./models/User");
-
 const models = require("./models");
-
 const router = require("./routes");
+const cors = require("cors")
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
