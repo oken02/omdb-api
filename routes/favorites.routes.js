@@ -57,7 +57,6 @@ router.post("/", validateToken, async (req, res) => {
           // attributes: [ "Title", "Poster", "imdbID"],
         });
 
-        console.log("FAVORITE", favorite.toJSON());
 
         await user.update({ lastActivity: new Date() });
 
@@ -74,12 +73,9 @@ router.delete("/:favId", validateToken, (req, res) => {
   const { favId } = req.params;
   const { userId } = req.payload;
 
-  console.log("DELETE USER", userId, "FAV ID", favId);
-
   const user = User.build({ id: userId });
 
   user.removeFavorite(favId).then((r) => {
-    console.log("RESSSS", r);
     res.send("ok");
   });
 

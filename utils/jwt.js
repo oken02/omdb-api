@@ -5,10 +5,8 @@ const generateToken = (payload) => {
 };
 
 const validateToken = (req, res, next) => {
-  console.log("AUTHORIZATION", req.get("Authorization"));
-  const [type, reqToken] = (req.get("Authorization") || "").split(" ");
-  console.log("REQ TOKEN", reqToken);
 
+  const [type, reqToken] = (req.get("Authorization") || "").split(" ");
   if (!reqToken) {
     return res.status(401).json({ msg: "token missing or invalid" });
   }
@@ -19,10 +17,10 @@ const validateToken = (req, res, next) => {
       return res.sendStatus(401);
     }
     req.payload = payload;
-    console.log("NEXT");
     next();
   });
 };
+
 
 module.exports = {
   generateToken,

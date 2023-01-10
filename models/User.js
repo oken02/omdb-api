@@ -9,16 +9,17 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-
     username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-
+    googleId: {
+      type: DataTypes.STRING
+    },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     lastActivity: {
       type: DataTypes.DATE,

@@ -9,28 +9,27 @@ const router = express.Router();
 
 // /api/users
 
-router.get("/", validateToken, (req, res) => {
+router.get("/", (req, res) => {
   User.findAll({
     include: Favorite,
-    attributes: ["id", "fullName", "username", "lastActivity"],
+    // attributes: ["id", "fullName", "username", "lastActivity"],
   }).then((users) => {
     res.json(users);
   });
 });
 
-router.get("/:username", validateToken, async (req, res) => {
+router.get("/:username", async (req, res) => {
   const { username } = req.params;
 
   const user = await User.findOne({
     where: { username },
     include: Favorite,
-    attributes: ["id", "fullName", "username", "lastActivity"],
+    // attributes: ["id", "fullName", "username", "lastActivity"],
   });
 
   if (!user) {
     return res.sendStatus(404);
   } else {
-    console.log("USER", user);
     res.json(user);
   }
 });
@@ -48,8 +47,6 @@ router.put("/", validateToken, async (req, res) => {
     return res.sendStatus(404);
   }
 
-  console.log("UPDATE", [cant, userUpdated]);
-
   res.send(userUpdated);
 });
 
@@ -59,11 +56,12 @@ router.post("/", async (req, res) => {
 
     if (!user) {
       const createdUser = await User.create(req.body, {
-        fields: ["fullName", "username", "password"],
+        // fields: ["fullName", "username", "password"],
       });
+      const token = generateToken({ userId: createdUser.id, username: createdUser.username });
 
-      res.status(201).json(createdUser);
-    } else res.status(404).json({ msg: "username no valid" });
+      res.status(201).json({...createdUser, token });
+    } else res.status(404).json({ msg: "username exists" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ ok: false, msg: "server error" });
