@@ -1,4 +1,7 @@
-// run seed
+const db = require("./config/db");
 
-// cerra el proceso una vez completado con:
-// process.exit();
+try {
+  async () => {
+    await db.sync({ force: true });
+  };
+} catch {}

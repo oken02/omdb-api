@@ -5,7 +5,8 @@
   "main": "seed.js",
   "scripts": {
     "start": "env-cmd -e PROD node server.js",
-    "dev": "env-cmd -e DEV nodemon server.js"
+    "dev": "env-cmd -e DEV nodemon server.js",
+    "seed": "env-cmd -e PROD node seed"
   },
   "author": "",
   "license": "ISC",
